@@ -11,7 +11,6 @@ Gem::Specification.new do |s|
   s.email       = ["shout@friendsoftheweb.com"]
   s.homepage    = "https://github.com/friendsoftheweb/lazy_global_record"
   s.summary     = "Lazy loading of 'interesting' ActiveRecord model id's, thread-safely and with easy cache reset and lazy creation in testing"
-  s.description = "TODO: Description of LazyGlobalRecord."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
