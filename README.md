@@ -1,5 +1,7 @@
 # LazyGlobalRecord
 
+[![Gem Version](https://badge.fury.io/rb/lazy_global_record.svg)](https://badge.fury.io/rb/lazy_global_record)
+
 Lazy loading of 'interesting' ActiveRecord model id's, thread-safely and with
 easy cache reset and lazy creation in testing. Uses ruby-concurrent
 as a dependency.
