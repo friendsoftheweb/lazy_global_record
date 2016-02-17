@@ -8,6 +8,7 @@ You might find yourself doing this in Rails:
 
 ~~~ruby
 class Department < ActiveRecord::Base
+   # Bad idea, don't do this.
    def self.master_department_id
      @@master_department_id ||= where(name: "master").first.id
    end
