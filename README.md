@@ -35,13 +35,8 @@ it out and the cached value is wrong. And it's none of it thread-safe,
 and this is 2016, get with the concurrency program already.
 
 So this gem provides an answer, with a pattern to fetch and cache
-an ActiveRecord model `id` (or other values), such that:
-
-* thread-safe lazy loading
-* Raise if it's not there in production
-* Create it lazily if it's not there in dev/test
-* Allow reset of memoization in dev/test, after every test
-* Supply various custom logic with a concise api
+an ActiveRecord model `id` (or other values), lazily, thread-safely,
+with auto-creation and easy cache reset in test env.
 
 ~~~ruby
 class Department < ActiveRecord::Base
