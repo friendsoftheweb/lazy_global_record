@@ -51,7 +51,7 @@ class LazyGlobalRecord
   end
 
   def reset
-    raise TypeError.new("This ClassState object is not resettable") unless resettable?
+    raise TypeError.new("This LazyGlobalRecord object is not resettable") unless resettable?
     @slot.set( create_delay )
   end
 
