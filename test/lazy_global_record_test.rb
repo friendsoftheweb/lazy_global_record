@@ -87,6 +87,7 @@ class LazyGlobalRecordTest < ActiveSupport::TestCase
     assert_raise(ArgumentError) { lazy.value }
   end
 
+
   test "custom filter" do
     Value.create(:value => "seven", :other_value => "treasure")
     lazy = LazyGlobalRecord.new(
@@ -102,6 +103,14 @@ class LazyGlobalRecordTest < ActiveSupport::TestCase
     assert struct.id.present?
     assert_equal "treasure", struct.other_value
     assert_equal "more", struct.more
+  end
 
+  test "raises on exceptions in filter" do
+    lazy = LazyGlobalRecord.new(
+      relation: -> { Value.where(value: "one") },
+      filter: lambda { |original| raise ArgumentError, "intentional" }
+    )
+
+    assert_raise(ArgumentError) { value = lazy.value }
   end
 end
