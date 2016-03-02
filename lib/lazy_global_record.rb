@@ -35,9 +35,11 @@ class LazyGlobalRecord
   def value
     # double-deref, our atomic slot, and the delay itself.
     # needed so we can #reset in a thread-safe way too.
-    value = @slot.value.value
-    if @slot.value.reason
-      raise @slot.value.reason
+    delay = @slot.value
+
+    value = delay.value
+    if delay.reason
+      raise delay.reason
     end
     value
   end
