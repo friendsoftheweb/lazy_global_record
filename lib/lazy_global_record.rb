@@ -10,6 +10,9 @@ class LazyGlobalRecord
     def reset_all
       @all_instances.each { |instance| instance.reset if instance.resettable? }
     end
+    def reload_all
+      @all_instances.each { |instance| instance.reload if instance.resettable? }
+    end
   end
 
   def initialize( relation:,
@@ -55,6 +58,11 @@ class LazyGlobalRecord
   def reset
     raise TypeError.new("This LazyGlobalRecord object is not resettable") unless resettable?
     @slot.set( create_delay )
+  end
+
+  def reload
+    reset
+    value
   end
 
   protected

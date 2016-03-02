@@ -83,6 +83,12 @@ another in a `before(:each)` in your `spec_helper.rb`. Put
 a `LazyGlobalRecord.reset_all` after each and any `DatabaseCleaner.clean`
 or `clean_with` calls, to reset cached values when the db is cleaned out.
 
+You can also use `LazyGlobalRecord.reload_all`, which rests and then
+forces immediate re-fetch. Defeats the purpose of lazy loading to make
+tests faster by only loading what's needed for the test -- but I was
+getting odd segfaults in some cases that this is a potential workaround
+for.
+
 ### Custom transformations
 
 What if you need more than just the `id`?  You can supply a custom

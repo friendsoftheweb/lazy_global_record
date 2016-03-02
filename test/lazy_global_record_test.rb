@@ -62,6 +62,24 @@ class LazyGlobalRecordTest < ActiveSupport::TestCase
     assert_equal "second", Value.find(lazy.value).other_value
   end
 
+  test "it reloads" do
+    Value.create(value: "five", other_value: "first")
+
+    lazy = LazyGlobalRecord.new(
+      relation: -> { Value.where(value: "five") },
+      resettable: true
+    )
+
+    lazy.value
+
+    Value.delete_all
+    Value.create(value: "five", other_value: "second")
+
+    lazy.reload
+
+    assert_equal "second", Value.find(lazy.value).other_value
+  end
+
   test "it uses custom creation proc" do
     lazy = LazyGlobalRecord.new(
       relation: -> { Value.where(value: "six") },
