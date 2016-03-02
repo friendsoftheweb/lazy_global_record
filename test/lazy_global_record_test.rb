@@ -85,6 +85,9 @@ class LazyGlobalRecordTest < ActiveSupport::TestCase
       create_with: -> { raise ArgumentError.new("expected")  }
     )
     assert_raise(ArgumentError) { lazy.value }
+
+    # and a second time please
+    assert_raise(ArgumentError) { lazy.value }
   end
 
 
@@ -111,6 +114,8 @@ class LazyGlobalRecordTest < ActiveSupport::TestCase
       filter: lambda { |original| raise ArgumentError, "intentional" }
     )
 
+    assert_raise(ArgumentError) { value = lazy.value }
+    # and ensure a second time please
     assert_raise(ArgumentError) { value = lazy.value }
   end
 end
