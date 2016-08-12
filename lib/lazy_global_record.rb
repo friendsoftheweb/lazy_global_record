@@ -15,6 +15,11 @@ class LazyGlobalRecord
     end
   end
 
+  # Filter you can use if you really want to do this -- not sure how safe
+  # it is for AR to share a model between threads even if it is frozen
+  # and readonly!, use at your own risk.
+  FROZEN_MODEL = ->(obj) { obj.tap { |o| o.readonly! }.tap { |o| o.freeze } }
+
   def initialize( relation:,
                   filter: nil,
                   create_with: nil,

@@ -121,3 +121,18 @@ Keep in mind anything you do here will ordinarily be cached for the life
 of the process, you need to only cache things that won't change, or
 deal with cache invalidation by calling `reset` on the LazyGlobalRecord
 where appropriate.
+
+#### What if I want the actual AR model?
+
+In general, it's not safe to share an AR model object between threads, so
+this can be dangerous and is not hte default.
+
+Is it okay if the model is frozen and `readonly`?  Not sure, but it might be.
+If you want to try, at your own risk, there's a built-in filter proc
+that returns the model object itself, but frozen and marked readonly.
+
+~~~ruby
+lazy = LazyGlobalRecord.new(
+  relation: -> {where(name: "master"),
+  filter: LazyGlobalRecord::FROZEN_MODEL
+~~~

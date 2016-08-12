@@ -136,4 +136,20 @@ class LazyGlobalRecordTest < ActiveSupport::TestCase
     # and ensure a second time please
     assert_raise(ArgumentError) { value = lazy.value }
   end
+
+  test "FROZEN_MODEL filter" do
+    Value.create(value: "one")
+
+    lazy = LazyGlobalRecord.new(
+      relation: -> { Value.where(value: "one") },
+      filter: LazyGlobalRecord::FROZEN_MODEL
+    )
+
+    value = lazy.value
+
+    assert value.present?
+    assert_kind_of Value, value
+    assert value.frozen?
+    assert value.readonly?
+  end
 end
