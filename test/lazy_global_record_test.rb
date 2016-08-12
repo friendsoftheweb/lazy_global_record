@@ -132,9 +132,9 @@ class LazyGlobalRecordTest < ActiveSupport::TestCase
       filter: lambda { |original| raise ArgumentError, "intentional" }
     )
 
-    assert_raise(ArgumentError) { value = lazy.value }
+    assert_raise(ArgumentError) { lazy.value }
     # and ensure a second time please
-    assert_raise(ArgumentError) { value = lazy.value }
+    assert_raise(ArgumentError) { lazy.value }
   end
 
   test "FROZEN_MODEL filter" do
